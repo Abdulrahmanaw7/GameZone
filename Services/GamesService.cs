@@ -14,14 +14,14 @@ public class GamesService : IGamesService
         _webHostEnvironment = webHostEnvironment;
         _imagesPath = $"{_webHostEnvironment.WebRootPath}{FileSettings.ImagesPath}";
     }
-
+// حاول تحط ال  .AsNoTracking() في الاول خالص بعد اسم ال entity اللي بيرجع زي هنا
     public IEnumerable<Game> GetAll()
     {
         return _context.Games
+            .AsNoTracking()
             .Include(g => g.Category)
             .Include(g => g.Devices)
             .ThenInclude(d => d.Device)
-            .AsNoTracking()
             .ToList(); 
     }
 
